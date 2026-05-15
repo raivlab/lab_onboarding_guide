@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RAIV Lab 신입 연구자 필수 기본기</title>
+  <style>
+    :root {
+      --ink: #0b2b4f;
+      --muted: #66758a;
+      --line: #d7e1e7;
+      --panel: #ffffff;
+      --paper: #f5f8fa;
+      --navy: #0b2b4f;
+      --teal: #31aaa2;
+      --teal-dark: #168b84;
+      --ice: #e9f7f6;
+      --blue: #164e7a;
+      --radius: 8px;
+      --section-y: 48px;
+      --section-x: clamp(22px, 5vw, 72px);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(90deg, rgba(49, 170, 162, 0.06) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(11, 43, 79, 0.05) 0 1px, transparent 1px 100%),
+        var(--paper);
+      background-size: 42px 42px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", Arial, sans-serif;
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .shell {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    .rail {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 28px 22px;
+      background: linear-gradient(180deg, #0b2b4f 0%, #0d335f 54%, #08213d 100%);
+      color: #f5fbff;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .brand {
+      display: grid;
+      margin-bottom: 28px;
+    }
+
+    .brand a {
+      color: inherit;
+      display: inline-block;
+    }
+
+    .brand strong {
+      display: block;
+      font-size: 16px;
+      line-height: 1.15;
+    }
+
+    .brand span {
+      display: block;
+      color: #b9d9e2;
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    .nav {
+      display: grid;
+      gap: 6px;
+    }
+
+    .nav a {
+      padding: 9px 10px;
+      border-radius: 8px;
+      color: #e7f3f7;
+      font-size: 14px;
+    }
+
+    .nav a:hover {
+      background: rgba(49, 170, 162, 0.2);
+    }
+
+    main {
+      min-width: 0;
+    }
+
+    .hero {
+      position: relative;
+      display: grid;
+      align-items: center;
+      min-height: auto;
+      padding: var(--section-y) var(--section-x);
+      color: var(--ink);
+      background: #ffffff;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 1px;
+      background: var(--line);
+    }
+
+    .heroInner {
+      max-width: 980px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .heroLogo {
+      display: block;
+      width: min(520px, 78vw);
+      height: auto;
+      margin-bottom: 22px;
+    }
+
+    .heroLogoLink {
+      display: inline-block;
+    }
+
+    .kicker {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 900px;
+      margin: 0;
+      font-size: clamp(36px, 5.4vw, 72px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .hero p {
+      max-width: 760px;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    section {
+      padding: var(--section-y) var(--section-x);
+      border-bottom: 1px solid var(--line);
+      background: #ffffff;
+    }
+
+    .sectionHead {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(26px, 3vw, 40px);
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    .sectionHead p {
+      max-width: 620px;
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .studyNote {
+      max-width: 980px;
+      padding: 22px 24px;
+      border: 1px solid rgba(49, 170, 162, 0.32);
+      border-left: 5px solid var(--teal);
+      border-radius: var(--radius);
+      background: #f2fbfb;
+      color: var(--navy);
+      box-shadow: 0 10px 28px rgba(11, 43, 79, 0.05);
+    }
+
+    .studyNote b {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 20px;
+    }
+
+    .studyNote p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .card,
+    .tool,
+    .rubric {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: 0 10px 28px rgba(11, 43, 79, 0.05);
+      transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+    }
+
+    .card:hover,
+    .tool:hover,
+    .rubric:hover {
+      transform: translateY(-2px);
+      border-color: rgba(49, 170, 162, 0.42);
+      box-shadow: 0 18px 38px rgba(11, 43, 79, 0.1);
+    }
+
+    .card {
+      min-height: 230px;
+      padding: 20px;
+    }
+
+    .card h3,
+    .rubric h3 {
+      margin: 0 0 10px;
+      font-size: 19px;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+
+    .card p {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .learnLinks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .learnLinks a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 6px 9px;
+      border: 1px solid rgba(49, 170, 162, 0.28);
+      border-radius: 8px;
+      color: var(--navy);
+      background: var(--ice);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .learnLinks a:hover {
+      border-color: var(--teal);
+      background: #ffffff;
+    }
+
+    .tools {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .tool {
+      padding: 18px;
+    }
+
+    .tool svg {
+      width: 24px;
+      height: 24px;
+      margin-bottom: 10px;
+      stroke: var(--teal);
+      stroke-width: 2;
+      fill: none;
+    }
+
+    .tool b {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .tool span {
+      display: block;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .assessment {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .rubric {
+      padding: 20px;
+    }
+
+    .rubric ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .rubric li + li {
+      margin-top: 6px;
+    }
+
+    @media (max-width: 980px) {
+      .shell {
+        display: block;
+      }
+
+      .rail {
+        position: relative;
+        height: auto;
+      }
+
+      .nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .cards,
+      .tools,
+      .assessment {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 640px) {
+      :root {
+        --section-y: 38px;
+      }
+
+      .sectionHead {
+        display: block;
+      }
+
+      .sectionHead p {
+        margin-top: 10px;
+      }
+
+      .heroLogo {
+        width: 100%;
+        margin-bottom: 22px;
+      }
+
+    }
+
+    @media print {
+      .rail {
+        display: none;
+      }
+
+      body {
+        background: #fff;
+      }
+
+      .shell {
+        display: block;
+      }
+
+      .hero {
+        min-height: auto;
+        color: #111;
+        background: #fff;
+        padding: 30px 0;
+      }
+
+      .hero::before {
+        display: none;
+      }
+
+      section {
+        padding: 26px 0;
+      }
+
+      .card,
+      .tool,
+      .rubric {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="rail">
+      <div class="brand">
+        <div>
+          <a href="https://sites.google.com/view/raiv-lab/home" target="_blank" rel="noopener" aria-label="RAIV Lab 홈페이지로 이동">
+            <strong>RAIV Lab</strong>
+            <span>Lab Onboarding Guide</span>
+          </a>
+        </div>
+      </div>
+      <nav class="nav" aria-label="페이지 이동">
+        <a href="#study">학습 방법</a>
+        <a href="#theory">필수 이론</a>
+        <a href="#skills">필수 스킬</a>
+        <a href="#missions">미션</a>
+      </nav>
+    </aside>
+
+    <main>
+      <header class="hero">
+        <div class="heroInner">
+          <a class="heroLogoLink" href="https://sites.google.com/view/raiv-lab/home" target="_blank" rel="noopener" aria-label="RAIV Lab 홈페이지로 이동">
+            <img class="heroLogo" src="assets/raiv-wordmark.png" alt="Robotics and AI Vision Lab">
+          </a>
+          <p class="kicker">Robotics · AI Vision · Physical AI</p>
+          <h1>신입 연구자를 위한 필수 기본기</h1>
+          <p>능동적으로 배우고, 스스로 질문을 세우며, 실험으로 답을 찾아가는 태도에서 연구가 시작됩니다.</p>
+        </div>
+      </header>
+
+      <section id="study">
+        <div class="sectionHead">
+          <h2>학습 방법</h2>
+        </div>
+        <div class="studyNote">
+          <b>지금부터의 학습은 다릅니다.</b>
+          <p>읽고 이해했다고 넘어가는 수준에서 끝나면 안 됩니다. 직접 돌려보고, 남에게 설명할 수 있는 수준까지 가야 합니다. 실습 자료나 관련 코드를 직접 실행해보세요. 필요하다면 직접 구현해보는 것도 좋습니다. 그 과정에서 입력이나 파라미터를 바꿔가며, 결과가 왜 달라지는지 그 이유까지 파악해야 합니다.</p>
+        </div>
+      </section>
+
+      <section id="theory">
+        <div class="sectionHead">
+          <h2>필수 이론</h2>
+        </div>
+        <div class="cards">
+          <article class="card" data-group="theory">
+            <h3>로봇 인공지능을 위한 수학</h3>
+            <p>선형대수, 확률, 최적화, 좌표변환을 로봇 인식과 학습 문제의 언어로 사용할 수 있어야 한다.</p>
+            <div class="learnLinks">
+              <a href="https://www.boostcourse.org/ai251" target="_blank" rel="noopener">Boostcourse 선형대수</a>
+            </div>
+          </article>
+          <article class="card" data-group="theory">
+            <h3>로봇 비전을 위한 기하학</h3>
+            <p>카메라 모델, 좌표계, 캘리브레이션, epipolar geometry, 3D reconstruction을 이해한다.</p>
+            <div class="learnLinks">
+              <a href="http://www.r-5.org/files/books/computers/algo-list/image-processing/vision/Richard_Hartley_Andrew_Zisserman-Multiple_View_Geometry_in_Computer_Vision-EN.pdf" target="_blank" rel="noopener">Multiple View Geometry PDF</a>
+              <a href="https://www.youtube.com/watch?v=RDkwklFGMfo&list=PLTBdjV_4f-EJn6udZ34tht9EVIW7lbeo4" target="_blank" rel="noopener">SLAM YouTube 강의</a>
+            </div>
+          </article>
+          <article class="card" data-group="theory">
+            <h3>딥러닝 기본</h3>
+            <p>CNN, Transformer, 학습 루프, loss, overfitting, fine-tuning, representation learning의 기본을 익힌다.</p>
+            <div class="learnLinks">
+              <a href="https://hunkim.github.io/ml/" target="_blank" rel="noopener">모두를 위한 ML</a>
+              <a href="https://d2l.ai/" target="_blank" rel="noopener">Dive into Deep Learning</a>
+              <a href="https://udlbook.github.io/udlbook/" target="_blank" rel="noopener">Understanding Deep Learning</a>
+            </div>
+          </article>
+          <article class="card" data-group="theory">
+            <h3>로보틱스 기초</h3>
+            <p>rigid body motion, forward/inverse kinematics, Jacobian, dynamics, control의 큰 그림을 잡는다.</p>
+            <div class="learnLinks">
+              <a href="https://marsuniversity.github.io/ece387/Introduction-to-Robotics-Craig.pdf" target="_blank" rel="noopener">Introduction to Robotics PDF</a>
+              <a href="https://www.youtube.com/watch?v=Y4gtuQljLrY&list=PLP4rlEcTzeFIvgNQD8M1T7_PzxO3JNK5Z" target="_blank" rel="noopener">Robotics YouTube 강의</a>
+            </div>
+          </article>
+          <article class="card" data-group="theory">
+            <h3>Spatial AI의 기초</h3>
+            <p>SLAM, visual odometry, sensor fusion, graph optimization이 공간지능에서 어떤 역할을 하는지 이해한다.</p>
+            <div class="learnLinks">
+              <a href="https://www.cv-learn.com/20210123-slam-book-translation/" target="_blank" rel="noopener">CV-Learn SLAMBook</a>
+              <a href="http://ais.informatik.uni-freiburg.de/teaching/ws11/robotics2/pdfs/ls-slam-tutorial.pdf" target="_blank" rel="noopener">Least Squares SLAM Tutorial</a>
+              <a href="https://learnopencv.com/lidar-slam-with-ros2/" target="_blank" rel="noopener">LiDAR SLAM with ROS2</a>
+            </div>
+          </article>
+          <article class="card" data-group="theory">
+            <h3>대상 물체 인식의 기본</h3>
+            <p>object detection, segmentation, 6D pose estimation, dataset annotation, evaluation metric의 기본을 이해한다.</p>
+            <div class="learnLinks">
+              <a href="https://docs.pytorch.org/tutorials/intermediate/torchvision_tutorial.html" target="_blank" rel="noopener">TorchVision Detection Tutorial</a>
+              <a href="https://docs.ultralytics.com/" target="_blank" rel="noopener">Ultralytics Docs</a>
+              <a href="https://bop.felk.cvut.cz/home/" target="_blank" rel="noopener">BOP Benchmark</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="skills">
+        <div class="sectionHead">
+          <h2>필수 스킬</h2>
+        </div>
+        <div class="tools">
+          <div class="tool">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 9h8M8 13h6M5 4h14v16H5z"/></svg>
+            <b>Python</b>
+            <span>NumPy, OpenCV, PyTorch, Matplotlib로 데이터 처리, 모델 학습, 결과 분석을 수행</span>
+            <div class="learnLinks">
+              <a href="https://wikidocs.net/book/2" target="_blank" rel="noopener">점프 투 파이썬</a>
+            </div>
+          </div>
+          <div class="tool">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+            <b>C++</b>
+            <span>ROS 패키지, 성능이 필요한 비전·SLAM 모듈, 기본 자료구조와 디버깅을 다룸</span>
+            <div class="learnLinks">
+              <a href="https://modoocode.com/category/C++" target="_blank" rel="noopener">모두의 코드 C++</a>
+            </div>
+          </div>
+          <div class="tool">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18V6h12v12zM9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/></svg>
+            <b>ROS</b>
+            <span>node, topic, service, action, TF, bag, launch로 로봇 데이터 흐름을 구성</span>
+            <div class="learnLinks">
+              <a href="https://docs.ros.org/en/jazzy/Tutorials.html" target="_blank" rel="noopener">ROS 2 Tutorials</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="missions">
+        <div class="sectionHead">
+          <h2>미션</h2>
+          <p>기본기를 직접 확인하기 위한 작은 과제입니다.</p>
+        </div>
+        <div class="assessment">
+          <div class="rubric">
+            <h3>M1. ROS2</h3>
+            <ul>
+              <li>카메라, LiDAR, IMU를 모두 ROS2와 연동</li>
+              <li>센서 데이터를 topic으로 받아 기록 또는 재생</li>
+              <li>RViz2 또는 rqt로 데이터 흐름과 시각화 결과 정리</li>
+            </ul>
+          </div>
+          <div class="rubric">
+            <h3>M2. Object Detection</h3>
+            <ul>
+              <li>Ultralytics로 object detection 모델 학습</li>
+              <li>작은 데이터셋 구성 또는 공개 데이터셋 활용</li>
+              <li>학습 결과, 예측 이미지, 실패 사례 5개 분석</li>
+            </ul>
+          </div>
+          <div class="rubric">
+            <h3>M3. Feature-Based SLAM</h3>
+            <ul>
+              <li>Feature-based SLAM 방법 중 하나 실행</li>
+              <li>입력 데이터셋, 실행 명령, 결과 trajectory 정리</li>
+              <li>잘 되는 구간과 실패 구간을 각각 분석</li>
+            </ul>
+          </div>
+          <div class="rubric">
+            <h3>M4. LiDAR SLAM</h3>
+            <ul>
+              <li>LiDAR SLAM 방법 중 하나 실행</li>
+              <li>ROS bag 또는 공개 LiDAR 데이터셋 활용</li>
+              <li>생성된 map, trajectory, 주요 파라미터 정리</li>
+            </ul>
+          </div>
+          <div class="rubric">
+            <h3>M5. 7-DOF Robot Manipulator</h3>
+            <ul>
+              <li>Pinocchio와 같은 로봇 라이브러리로 7자유도 로봇팔 모델 로드</li>
+              <li>forward kinematics와 inverse kinematics 계산 코드 작성</li>
+              <li>로봇팔 자세와 목표 pose를 그래픽으로 시각화</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
